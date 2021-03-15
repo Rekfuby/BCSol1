@@ -47,6 +47,8 @@ contract RR
     mapping(string => Home) private homes;
     mapping(string => Ownership[]) private ownerships;
     
+    address admin;
+    
     function AddHome(string memory _adr, uint _area, uint _cost) public
     {
         Home memory h;
@@ -61,4 +63,29 @@ contract RR
         return (homes[adr].area, homes[adr].cost);
     }
     
+    function AddEmployee(address _adr, string memory _name, string memory _pos, string memory _phone) public
+    {
+        Employee memory e;
+        e.name = _name;
+        e.position = _pos;
+        e.phone_number = _phone;
+        employees[_adr] = e;
+    }
+    
+    function GetEmployee(address adr) public returns(string memory _name, string memory _pos, string memory _phone)
+    {
+        return (employees[adr].name, employees[adr].position, employees[adr].phone_number);
+    }
+    
+    function EditEmployee(address _adr, string memory _name, string memory _pos, string memory _phone) public
+    {
+        employees[_adr].name = _name;
+        employees[_adr].position = _pos;
+        employees[_adr].phone_number = _phone;
+    }
+    
+    function DeleteEmployee(address adr) public
+    {
+        delete employees[adr];
+    }
 }
